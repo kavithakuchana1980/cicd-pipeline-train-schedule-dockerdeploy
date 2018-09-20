@@ -17,7 +17,7 @@ pipeline {
                 script {
                     app = docker.build("kk/train-schedule-docker")
                     app.inside {
-                        sh 'echo $(curl 34.222.94.37:8080)'
+                        sh 'echo $(curl localhost:8080)'
                     }
                 }
             }
