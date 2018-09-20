@@ -17,26 +17,12 @@ pipeline {
                 script {
                     app = docker.build("kk/train-schedule-docker")
                     app.inside {
-                        sh 'echo $(curl localhost:8080)'
+                        sh 'echo $(curl 34.222.94.37:8080)'
                     }
                 }
             }
         }
-        stage('push to docker') {
-            when {
-                branch 'master'
-            }
-                    steps {
-                        script {
-                            docker.withRegistry('https://registry.hub.docker.com','docker_hub_login')
-                            {
-                                app.push("${env.BUILD_NUMBER}")
-                                app.push("latest")
-                            }
-                        }
-                    }
-                }
-                   
+       
                
     } 
 }
