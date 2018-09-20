@@ -49,19 +49,20 @@ pipeline {
                     sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker pull kavithakuchana/train-schedule-docker:${env.BUILD_NUMBER}\""
                     
                     try {
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker stop  kavithakuchana/train-schedule-docker \""
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker rm  kavithakuchana/train-schedule-docker \""
+                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker stop  train-schedule-docker \""
+                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker rm  train-schedule-docker \""
                     }
                     catch (err) {
                         echo: 'caught error : $err'
                     }
-                    sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker run --restart always --name train-schedule-docker -p 8080 -d kavithakuchana/train-schedule-docker:${env.BUILD_NUMBER}\""
+                    sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker run --restart always --name train-schedule-docker -p 8080:8080 -d kavithakuchana/train-schedule-docker:${env.BUILD_NUMBER}\""
+                }
+                    
+                  
                 }
             }
-                        
-        }    
-    }  
+        }
     }
-    
 }
-     
+
+      
