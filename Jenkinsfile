@@ -44,7 +44,7 @@ pipeline {
             }
             steps {
                 
-                withCredentials([usernamePassword(credentialsId:webserver_login, usernameVariable :'USERNAME',passwordVariable :'USERPASS')])
+                withCredentials([usernamePassword(credentialsId:'webserver_login', usernameVariable :'USERNAME',passwordVariable :'USERPASS')]) {
                 script {
                     sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker pull kavithakuchana/train-schedule-docker:${env.BUILD_NUMBER}\""
                     
@@ -61,7 +61,7 @@ pipeline {
                         
         }    
     }  
-               
+       
     
 }
      
